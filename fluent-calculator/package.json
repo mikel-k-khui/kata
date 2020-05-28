@@ -1,13 +1,13 @@
 {
   "name": "fluent-calculator",
   "version": "1.0.0",
-  "description": "",
+  "description": "kata (ryu 4): calculator using only fluent syntax (chaining) for 2 variables operation",
   "main": "index.js",
   "scripts": {
     "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Michael Chui",
   "license": "ISC",
   "devDependencies": {
     "jest": "^26.0.1"
