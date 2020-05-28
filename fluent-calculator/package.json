@@ -1,15 +1,35 @@
 {
-  "name": "fluent-calculator",
-  "version": "1.0.0",
-  "description": "kata (ryu 4): calculator using only fluent syntax (chaining) for 2 variables operation",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "keywords": [],
-  "author": "Michael Chui",
-  "license": "ISC",
-  "devDependencies": {
-    "jest": "^26.0.1"
-  }
+    "name": "fluent-calculator",
+    "version": "1.0.0",
+    "description": "kata (ryu 4): calculator using only fluent syntax (chaining) for 2 variables operation",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "Michael Chui",
+    "license": "ISC",
+    "devDependencies": {
+        "eslint": "^7.1.0",
+        "eslint-config-google": "^0.14.0",
+        "eslint-config-prettier": "6.11.0",
+        "eslint-plugin-prettier": "3.1.3",
+        "husky": "4.2.5",
+        "jest": "^26.0.1",
+        "lint-staged": "10.2.6",
+        "prettier": "2.0.5"
+    },
+    "lint-staged": {
+        "*.{js,jsx}": [
+            "eslint --fix"
+        ],
+        "*.{json,md,scss,yaml,yml}": [
+            "prettier --write"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    }
 }
