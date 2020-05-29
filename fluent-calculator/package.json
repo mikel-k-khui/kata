@@ -4,6 +4,7 @@
     "description": "kata (ryu 4): calculator using only fluent syntax (chaining) for 2 variables operation",
     "main": "index.js",
     "scripts": {
+        "start": "node src/index.js",
         "test": "jest"
     },
     "keywords": [],
