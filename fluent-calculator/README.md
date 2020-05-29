@@ -18,10 +18,11 @@ Each calculation consists of one operation only and will return an integer.
 Note: This is not a string parsing problem. The calls above are a chain of methods. Some languages may require parenthesis in method calls. That is OK, but consider a different language what would support the above syntax if possible.
 
 ## Deliverables
+Please provide your github user name or github email to [me](michael.chui1@ucalgary.ca) for an invite to private repository:
 
 [Private Repository page](https://github.com/mikel-k-khui/kata/tree/master/fluent-calculator)
 
-[Project Plan](https://github.com/mikel-k-khui/kata/projects/1)
+[Github Project](https://github.com/mikel-k-khui/kata/projects/1)
 
 ### Key Learning:
 
@@ -42,12 +43,15 @@ none
 
 ### Installation
 
-1. Download zipped file or clone this private repo.
+1. Download zipped file or clone the kata's private repo.
 
-2. Install node dependencies: `npm install`.
+2. Navigate to the fluent-calculator folder `cd fluent-calculator`
 
-3. Run the jest test: `npm run test`.
-   _Note: root file index.js does not contain any useful code_
+3. Install node dependencies: `npm install`.
+
+4. Run the jest test: `npm run test` from fluent-calculator folder or `npm run fluent-calculator-test` from root folder.
+
+5. Run the console test: `node src/index.js` from fluent-calculator folder or `npm run fluent-calculator` from root folder.
 
 ## Testing
 
