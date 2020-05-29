@@ -38,10 +38,18 @@ const operators = {
  */
 module.exports = class Calcalutor {
   constructor(firstDigit = undefined) {
-    this.firstDigit = firstDigit
+    this._firstDigit = firstDigit
     this.defineNewMethod()
     this.defineDigitMethods()
     this.defineOperatorMethods()
+  }
+
+  get firstDigit() {
+    return this._firstDigit
+  }
+
+  set firstDigit(newDigit) {
+    this._firstDigit = newDigit
   }
 
   // new method also checks if firstDigit is undefined to reset the calculator
