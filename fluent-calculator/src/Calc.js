@@ -1,4 +1,16 @@
 // define constants
+const digits = [
+  'zero',
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+]
 const operators = {
   'plus': (x, y) => x + y,
   'minus': (x, y) => x - y,
@@ -12,19 +24,6 @@ const operators = {
     return x > 0 && y > 0 ? quotient(x, y) : divisionWithZero()
   },
 }
-
-const digits = [
-  'zero',
-  'one',
-  'two',
-  'three',
-  'four',
-  'five',
-  'six',
-  'seven',
-  'eight',
-  'nine',
-]
 
 module.exports = class Calcalutor {
   constructor() {
