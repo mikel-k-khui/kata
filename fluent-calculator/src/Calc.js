@@ -32,7 +32,7 @@ module.exports = class Calcalutor {
 
   /**
    * Goal is to mimic the define_method function in Ruby to create an array of functions
-   * This function loops through the arrays of operators to create an object
+   * This function loops through the arrays of digits and operators to create objects
    * then assigns each digits a function within the operator's digit
    *
    * Calculator is cleared for each operation to ensure independent calculation
