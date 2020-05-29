@@ -15,7 +15,7 @@ const operators = {
   'plus': (x, y) => x + y,
   'minus': (x, y) => x - y,
   'times': (x, y) => Math.round(x * y),
-  'dividedBy': (x, y) => {
+  'divided_by': (x, y) => {
     const quotient = (a, b) => Math.floor(a / b)
     const divisionWithZero = () => {
       console.error(`Dividend ${x} or divisor ${y} is zero`)
