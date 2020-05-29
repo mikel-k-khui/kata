@@ -1,46 +1,54 @@
 // define constants
+const quotient = (x, y) => Math.floor(x / y)
+
 const operators = {
-    plus: (x, y) => Math.round(x + y),
-    minus: (x, y) => Math.round(x - y),
+  'plus': (x, y) => x + y,
+  'minus': (x, y) => x - y,
+  'times': (x, y) => Math.round(x * y),
+  'dividedBy': (x, y) => (x > 0 && y > 0 ? quotient(x / y) : undefined),
 }
 
-const values = ['zero', 'one']
+const digits = [
+  'zero',
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+]
 
 module.exports = class Calcalutor {
-    /**
-     * Adds two numbers together.
-     * @param {int} num1 The first number.
-     * @param {int} num2 The second number.
-     */
-    constructor() {
-        this._foo = undefined
-        this.defineMethod()
-    }
+  constructor() {
+    this.defineMethods()
+  }
 
-    /*
-     * Goal is to mimic the define_method function in Ruby to create an array of functions
-     * This function loops through the arrays of acceptable function names
-     * and assign them the same process
-     */
-    static defineMethod() {
-        this['new'] = this.bypass
-        operators.forEach((operator) => (this[operator] = this.process))
-        values.forEach((value) => (this[value] = this.process))
-    }
+  /**
+   * Goal is to mimic the define_method function in Ruby to create an array of functions
+   * This function loops through the arrays of acceptable function names
+   * and assign them the same process
+   */
+  defineMethods() {
+    this['new'] = () => this
 
-    /*
-     * Evaluate each call through the fluent syntax to assess
-     */
-    process() {
-        return !this._foo ? this.setFoo() : this._foo
-    }
+    Object.entries(operators).forEach(([operator, operatorFunction]) => {
+      this[operator] = {}
 
-    bypass() {
+      digits.forEach((digit, index) => {
+        this[operator][digit] = () => {
+          return operatorFunction(this.firstDigit, index)
+        }
+      })
+    })
+
+    digits.forEach((digit, index) => {
+      this[digit] = () => {
+        this.firstDigit = index
         return this
-    }
-
-    setFoo() {
-        this._foo = 'bar'
-        return this
-    }
+      }
+    })
+  }
 }
