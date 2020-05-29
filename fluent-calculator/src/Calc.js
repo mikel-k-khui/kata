@@ -1,11 +1,12 @@
 // define constants
-const quotient = (x, y) => Math.floor(x / y)
-
 const operators = {
   'plus': (x, y) => x + y,
   'minus': (x, y) => x - y,
   'times': (x, y) => Math.round(x * y),
-  'dividedBy': (x, y) => (x > 0 && y > 0 ? quotient(x / y) : undefined),
+  'dividedBy': (x, y) => {
+    const quotient = (a, b) => Math.floor(a / b)
+    return x > 0 && y > 0 ? quotient(x, y) : undefined
+  },
 }
 
 const digits = [
@@ -39,7 +40,16 @@ module.exports = class Calcalutor {
 
       digits.forEach((digit, index) => {
         this[operator][digit] = () => {
-          return operatorFunction(this.firstDigit, index)
+          const missingFirstDigit = (firstDigit, index) => {
+            console.error(
+              `Term, multipler, or dividend is ${firstDigit} to ${operator} ${index}`
+            )
+            return undefined
+          }
+
+          return this.firstDigit !== undefined
+            ? operatorFunction(this.firstDigit, index)
+            : missingFirstDigit(this.firstDigit, index)
         }
       })
     })
