@@ -14,7 +14,7 @@ describe('validate logic and edge cases', () => {
   // test edge cases
   it('should return Calculator object without operator or second digit', () => {
     // 5 is still first digit as the first call has not cleared
-    let Calc = new Calcalutor()
+    const Calc = new Calcalutor()
     expect(Calc.new.five).toEqual({ 'firstDigit': 5 })
     expect(Calc.new.five.plus).toEqual({}) // only has properties as calculator resets after error
     expect(Calc.new.eight.five).toEqual({}) // only has properties as calculator resets after error
@@ -31,7 +31,7 @@ describe('validate logic and edge cases', () => {
   // test console error outputs
   it('should return specific errors to console for edge cases', () => {
     const spy = jest.spyOn(console, 'error')
-    let Calc = new Calcalutor()
+    const Calc = new Calcalutor()
     expect(Calc.new.zero.divided_by.zero).toBe(undefined)
     expect(spy).toHaveBeenCalledTimes(1)
     expect(Calc.plus.eight).toBe(undefined)
