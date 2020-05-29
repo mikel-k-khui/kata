@@ -13,3 +13,8 @@ More information available in the kata folder's [README.md](/fluent-calculator/R
 4. Run the jest test: `npm run test` from fluent-calculator folder or `npm run fluent-calculator-test` from root folder.
 
 5. Run the console test: `node src/index.js` from fluent-calculator folder or `npm run fluent-calculator` from root folder.
+
+[secret string](/secret-string/)
+
+More information available in the kata folder's [README.md](/secret-string/README.md)
+### Installation
