@@ -1,32 +1,42 @@
-# Kata (4ryu): Fluent Calculator
+# Kata (4ryu): Secret String
+
+[*—your secrets are never safe*]
 
 ## Summary
 
-The Kata is inspired by the “Calculating with Functions Kata for JavaScript” on codewars.
+The Kata is inspired by the one of kata codewars: There is a secret string which is unknown to you. Given a collection of random triplets from the
+string, recover the original string.
 
-The goal is to implement a simple calculator which uses fluent syntax:
+A triplet here is defined as a sequence of three letters such that each letter occurs somewhere
+before the next in the given string. "whi" is a triplet for the string "whatisup". As a simplification, you may assume:
 
-- Calc.new.one.plus.two # Should return 3
-- Calc.new.five.minus.six # Should return -1
-- Calc.new.seven.times.two # Should return 14
-- Calc.new.nine.divided_by.three # Should return 3
+- **no letter occurs more than once** in the secret string.
+- nothing about the triplets given to you other than that they are valid triplets.
+- they contain sufficient information to deduce the original string.
 
-There are only four operations that are supported (**plus, minus, times, divided_by**) and 10 digits (**zero, one, two, three, four, five, six, seven, eight, nine**).
+In particular, this means that the secret string will never contain letters that do not occur in one of the triplets given to you.
 
-Each calculation consists of one operation only and will return an integer.
+secret_1 = "whatisup"
 
-Note: This is not a string parsing problem. The calls above are a chain of methods. Some languages may require parenthesis in method calls. That is OK, but consider a different language what would support the above syntax if possible.
+triplets_1 = [
+['t','u','p'],
+['w','h','i'],
+['t','s','u'],
+['a','t','s'],
+['h','a','p'],
+['t','i','s'],
+['w','h','s']
+]
 
 ## Deliverables
 
-[Private Repository page](https://github.com/mikel-k-khui/kata/tree/master/fluent-calculator)
+[Private Repository page](https://github.com/mikel-k-khui/kata/tree/master/secret-string)
 
-[Project Plan](https://github.com/mikel-k-khui/kata/projects/1)
+[Project Plan](https://github.com/mikel-k-khui/kata/projects/2)
 
 ### Key Learning:
 
-- Compare language possibilities and effectiveness to minimize the parenthesis: Ruby vs. Node.js.
-- OOP with 2 methods vs. single function with get/set methods (i.e. no parenthesis): separation of concerns, effectiveness, and readability.
+-
 
 ## Project Setup
 
@@ -44,15 +54,18 @@ none
 
 1. Download zipped file or clone this private repo.
 
-2. Install node dependencies: `npm install`.
+2. Navigate to the fluent-calculator folder `cd secret-string`.
 
-3. Run the jest test: `npm run test`.
-   _Note: root file index.js does not contain any useful code_
+3. Install node dependencies: `npm install`.
+
+4. Run the jest test: `npm run test` from fluent-calculator folder or `npm run secret-string-test` from root folder.
+
+5. Run the console test: `node src/index.js` from fluent-calculator folder or `npm run secret-string` from root folder.
 
 ## Testing
 
 - Developed with TDD
-- Unit testing with Jest: inputs validations, different fluent syntax configurations, expected sample outputs, and expected error.
+- Unit testing with Jest: .
 
 ## Contributing
 
