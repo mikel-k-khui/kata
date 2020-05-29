@@ -15,7 +15,8 @@ describe('validate logic and edge cases', () => {
   it('should return Calculator object without operator or second digit', () => {
     // 5 is still first digit as the first call has not cleared
     const Calc = new Calcalutor()
-    expect(Calc.new.five).toEqual({ 'firstDigit': 5 })
+    const testCalc = new Calcalutor(5)
+    expect(Calc.new.five).toEqual(testCalc)
     expect(Calc.new.five.plus).toEqual({}) // only has properties as calculator resets after error
     expect(Calc.new.eight.five).toEqual({}) // only has properties as calculator resets after error
   })
