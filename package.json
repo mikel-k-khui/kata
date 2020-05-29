@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "description": "Private repository for katas",
+  "scripts": {
+    "fluent-calculator": "cd fluent-calculator && node src/index.js",
+    "fluent-calculator-test": "cd fluent-calculator && npm run test"
+  },
+  "author": "Michael Chui"
+}

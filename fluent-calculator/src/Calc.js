@@ -15,7 +15,7 @@ const operators = {
   'plus': (x, y) => x + y,
   'minus': (x, y) => x - y,
   'times': (x, y) => Math.round(x * y),
-  'dividedBy': (x, y) => {
+  'divided_by': (x, y) => {
     const quotient = (a, b) => Math.floor(a / b)
     const divisionWithZero = () => {
       console.error(`Dividend ${x} or divisor ${y} is zero`)
@@ -25,51 +25,85 @@ const operators = {
   },
 }
 
+/**
+ * Goal is to mimic the define_method function in Ruby to create an array of functions
+ *
+ * Create getter functions for new, operators and digits.  Basic structure is:
+ * Calc - class object
+ * new - getter function return Calc object
+ * <digit> - getter function to update first digit return Calc object
+ * <operator> - object of getter functions to pass first digit and value for operator function
+ *
+ * Calculator is cleared for each operation to ensure independent calculation
+ */
 module.exports = class Calcalutor {
-  constructor() {
-    this.defineMethods()
+  constructor(firstDigit = undefined) {
+    this.firstDigit = firstDigit
+    this.defineNewMethod()
+    this.defineDigitMethods()
+    this.defineOperatorMethods()
   }
 
-  /**
-   * Goal is to mimic the define_method function in Ruby to create an array of functions
-   * This function loops through the arrays of digits and operators to create objects
-   * then assigns each digits a function within the operator's digit
-   *
-   * Calculator is cleared for each operation to ensure independent calculation
-   */
-  defineMethods() {
-    Object.entries(operators).forEach(([operator, operatorFunction]) => {
-      this[operator] = {}
-
-      digits.forEach((digit, index) => {
-        this[operator][digit] = () => {
-          const missingFirstDigit = (firstDigit, index) => {
-            console.error(
-              `Term, multipler, or dividend is ${firstDigit} to ${operator} ${index}`
-            )
-            return undefined
-          }
-          const action =
-            this.firstDigit !== undefined
-              ? operatorFunction(this.firstDigit, index)
-              : missingFirstDigit(this.firstDigit, index)
+  // new method also checks if firstDigit is undefined to reset the calculator
+  defineNewMethod() {
+    Object.defineProperty(this, 'new', {
+      get: () => {
+        if (!Object.is(this.firstDigit, undefined)) {
           this.resetCalculator()
-
-          return action
         }
+        return this
+      },
+    })
+  }
+
+  defineDigitMethods() {
+    digits.forEach((digit, index) => {
+      Object.defineProperty(this, digit, {
+        get: () => {
+          if (Object.is(this.firstDigit, undefined)) {
+            this.firstDigit = index
+          } else {
+            console.error(`Incorrect inputs ${this.firstDigit}`)
+            this.resetCalculator()
+          }
+          return this
+        },
       })
     })
+  }
 
-    this.new = {}
-    digits.forEach((digit, index) => {
-      this.new[digit] = () => {
-        this.firstDigit = index
-        return this
-      }
+  defineOperatorMethods() {
+    Object.entries(operators).forEach(([operator, operatorFunction]) => {
+      // set getter function for each digit within operator
+      const operatorObject = {}
+      digits.forEach((digit, index) => {
+        Object.defineProperty(operatorObject, digit, {
+          get: () => {
+            const missingFirstDigit = (firstDigit, index) => {
+              console.error(
+                `Term, multipler, or dividend is ${firstDigit} to ${operator} ${index}`
+              )
+              return undefined
+            }
+            const action =
+              this.firstDigit !== undefined
+                ? operatorFunction(this.firstDigit, index)
+                : missingFirstDigit(this.firstDigit, index)
+            this.resetCalculator()
+
+            return action
+          },
+        })
+      })
+
+      // set getter function to class object
+      Object.defineProperty(this, operator, {
+        get: () => operatorObject,
+      })
     })
   }
 
   resetCalculator() {
-    delete this.firstDigit
+    this.firstDigit = undefined
   }
 }
