@@ -5,7 +5,11 @@ const operators = {
   'times': (x, y) => Math.round(x * y),
   'dividedBy': (x, y) => {
     const quotient = (a, b) => Math.floor(a / b)
-    return x > 0 && y > 0 ? quotient(x, y) : undefined
+    const divisionWithZero = () => {
+      console.error(`Dividend ${x} or divisor ${y} is zero`)
+      return undefined
+    }
+    return x > 0 && y > 0 ? quotient(x, y) : divisionWithZero()
   },
 }
 
@@ -29,8 +33,10 @@ module.exports = class Calcalutor {
 
   /**
    * Goal is to mimic the define_method function in Ruby to create an array of functions
-   * This function loops through the arrays of acceptable function names
-   * and assign them the same process
+   * This function loops through the arrays of operators to create an object
+   * then assigns each digits a function within the operator's digit
+   *
+   * Calculator is cleared for each operation to ensure independent calculation
    */
   defineMethods() {
     this['new'] = () => this
@@ -46,10 +52,13 @@ module.exports = class Calcalutor {
             )
             return undefined
           }
+          const action =
+            this.firstDigit !== undefined
+              ? operatorFunction(this.firstDigit, index)
+              : missingFirstDigit(this.firstDigit, index)
+          this.resetCalculator()
 
-          return this.firstDigit !== undefined
-            ? operatorFunction(this.firstDigit, index)
-            : missingFirstDigit(this.firstDigit, index)
+          return action
         }
       })
     })
@@ -60,5 +69,9 @@ module.exports = class Calcalutor {
         return this
       }
     })
+  }
+
+  resetCalculator() {
+    delete this.firstDigit
   }
 }

@@ -25,4 +25,14 @@ describe('validate logic and edge cases', () => {
     expect(Calc.new().four().dividedBy.zero()).toBe(undefined)
     expect(Calc.new().zero().dividedBy.four()).toBe(undefined)
   })
+
+  // test console output
+  it('should return error on console', () => {
+    const spy = jest.spyOn(console, 'error')
+    const Calc = new Calcalutor()
+    expect(Calc.new().zero().dividedBy.zero()).toBe(undefined)
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(Calc.new().plus.eight()).toBe(undefined)
+    expect(spy).toHaveBeenCalledTimes(2)
+  })
 })
