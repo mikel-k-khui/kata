@@ -25,25 +25,27 @@ const operators = {
   },
 }
 
+/**
+ * Goal is to mimic the define_method function in Ruby to create an array of functions
+ *
+ * Create getter functions for new, operators and digits.  Basic structure is:
+ * Calc - class object
+ * new - getter function return Calc object
+ * <digit> - getter function to update first digit return Calc object
+ * <operator> - object of getter functions to pass first digit and value for operator function
+ *
+ * Calculator is cleared for each operation to ensure independent calculation
+ */
 module.exports = class Calcalutor {
   constructor(firstDigit = undefined) {
     this.firstDigit = firstDigit
-    this.defineMethods()
+    this.defineNewMethod()
+    this.defineDigitMethods()
+    this.defineOperatorMethods()
   }
 
-  /**
-   * Goal is to mimic the define_method function in Ruby to create an array of functions
-   *
-   * Create getter functions for new, operators and digits.  Basic structure is:
-   * Calc - class object
-   * new - getter function return Calc object
-   * <digit> - getter function to update first digit return Calc object
-   * <operator> - object of getter functions to pass first digit and value for operator function
-   *
-   * Calculator is cleared for each operation to ensure independent calculation
-   */
-  defineMethods() {
-    // new also checks if firstDigit it undefined to reset the calculator
+  // new method also checks if firstDigit is undefined to reset the calculator
+  defineNewMethod() {
     Object.defineProperty(this, 'new', {
       get: () => {
         if (!Object.is(this.firstDigit, undefined)) {
@@ -52,7 +54,9 @@ module.exports = class Calcalutor {
         return this
       },
     })
+  }
 
+  defineDigitMethods() {
     digits.forEach((digit, index) => {
       Object.defineProperty(this, digit, {
         get: () => {
@@ -66,7 +70,9 @@ module.exports = class Calcalutor {
         },
       })
     })
+  }
 
+  defineOperatorMethods() {
     Object.entries(operators).forEach(([operator, operatorFunction]) => {
       // set getter function for each digit within operator
       const operatorObject = {}
