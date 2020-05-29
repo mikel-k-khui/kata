@@ -26,8 +26,8 @@ Please provide your github user name or github email to [me](michael.chui1@ucalg
 
 ### Key Learning:
 
-- Compare language possibilities and effectiveness to minimize the parenthesis: Ruby vs. Node.js.
-- OOP with 2 methods vs. single function with get/set methods (i.e. no parenthesis): separation of concerns, effectiveness, and readability.
+- Compare language possibilities and effectiveness to minimize the parenthesis: Python, Ruby, Node.js.
+- OOP with getter methods vs. single function: separation of concerns, effectiveness, and readability.
 
 ## Project Setup
 
