@@ -26,50 +26,78 @@ const operators = {
 }
 
 module.exports = class Calcalutor {
-  constructor() {
+  constructor(firstDigit = undefined) {
+    this.firstDigit = firstDigit
     this.defineMethods()
   }
 
   /**
    * Goal is to mimic the define_method function in Ruby to create an array of functions
-   * This function loops through the arrays of digits and operators to create objects
-   * then assigns each digits a function within the operator's digit
+   *
+   * Create getter functions for new, operators and digits.  Basic structure is:
+   * Calc - class object
+   * new - getter function return Calc object
+   * <digit> - getter function to update first digit return Calc object
+   * <operator> - object of getter functions to pass first digit and value for operator function
    *
    * Calculator is cleared for each operation to ensure independent calculation
    */
   defineMethods() {
-    Object.entries(operators).forEach(([operator, operatorFunction]) => {
-      this[operator] = {}
-
-      digits.forEach((digit, index) => {
-        this[operator][digit] = () => {
-          const missingFirstDigit = (firstDigit, index) => {
-            console.error(
-              `Term, multipler, or dividend is ${firstDigit} to ${operator} ${index}`
-            )
-            return undefined
-          }
-          const action =
-            this.firstDigit !== undefined
-              ? operatorFunction(this.firstDigit, index)
-              : missingFirstDigit(this.firstDigit, index)
+    // new also checks if firstDigit it undefined to reset the calculator
+    Object.defineProperty(this, 'new', {
+      get: () => {
+        if (!Object.is(this.firstDigit, undefined)) {
           this.resetCalculator()
-
-          return action
         }
+        return this
+      },
+    })
+
+    digits.forEach((digit, index) => {
+      Object.defineProperty(this, digit, {
+        get: () => {
+          if (Object.is(this.firstDigit, undefined)) {
+            this.firstDigit = index
+          } else {
+            console.error(`Incorrect inputs ${this.firstDigit}`)
+            this.resetCalculator()
+          }
+          return this
+        },
       })
     })
 
-    this.new = {}
-    digits.forEach((digit, index) => {
-      this.new[digit] = () => {
-        this.firstDigit = index
-        return this
-      }
+    Object.entries(operators).forEach(([operator, operatorFunction]) => {
+      // set getter function for each digit within operator
+      const operatorObject = {}
+      digits.forEach((digit, index) => {
+        Object.defineProperty(operatorObject, digit, {
+          get: () => {
+            const missingFirstDigit = (firstDigit, index) => {
+              console.error(
+                `Term, multipler, or dividend is ${firstDigit} to ${operator} ${index}`
+              )
+              return undefined
+            }
+            const action =
+              this.firstDigit !== undefined
+                ? operatorFunction(this.firstDigit, index)
+                : missingFirstDigit(this.firstDigit, index)
+            this.resetCalculator()
+
+            return action
+          },
+        })
+      })
+
+      // set getter function to class object
+      Object.defineProperty(this, operator, {
+        get: () => operatorObject,
+      })
     })
   }
 
   resetCalculator() {
-    delete this.firstDigit
+    this.firstDigit = undefined
   }
 }
