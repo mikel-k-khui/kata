@@ -39,8 +39,6 @@ module.exports = class Calcalutor {
    * Calculator is cleared for each operation to ensure independent calculation
    */
   defineMethods() {
-    this['new'] = () => this
-
     Object.entries(operators).forEach(([operator, operatorFunction]) => {
       this[operator] = {}
 
@@ -63,8 +61,9 @@ module.exports = class Calcalutor {
       })
     })
 
+    this.new = {}
     digits.forEach((digit, index) => {
-      this[digit] = () => {
+      this.new[digit] = () => {
         this.firstDigit = index
         return this
       }
