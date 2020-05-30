@@ -49,7 +49,16 @@ module.exports = class Calcalutor {
   }
 
   set firstDigit(newDigit) {
-    this._firstDigit = newDigit
+    if (!Object.is(this.firstDigit, undefined)) {
+      console.error(`Incorrect inputs ${this.firstDigit}`)
+      this.resetCalculator()
+    } else {
+      this._firstDigit = newDigit
+    }
+  }
+
+  resetCalculator() {
+    this._firstDigit = undefined
   }
 
   // new method also checks if firstDigit is undefined to reset the calculator
@@ -68,12 +77,7 @@ module.exports = class Calcalutor {
     digits.forEach((digit, index) => {
       Object.defineProperty(this, digit, {
         get: () => {
-          if (Object.is(this.firstDigit, undefined)) {
-            this.firstDigit = index
-          } else {
-            console.error(`Incorrect inputs ${this.firstDigit}`)
-            this.resetCalculator()
-          }
+          this.firstDigit = index
           return this
         },
       })
@@ -109,9 +113,5 @@ module.exports = class Calcalutor {
         get: () => operatorObject,
       })
     })
-  }
-
-  resetCalculator() {
-    this.firstDigit = undefined
   }
 }
