@@ -36,7 +36,8 @@ triplets_1 = [
 
 ### Key Learning:
 
--
+- Further apply CS/math strucutre theory to problem and data structure to simplify solution
+- Apply separation of concerns and OOP
 
 ## Project Setup
 
@@ -65,7 +66,7 @@ none
 ## Testing
 
 - Developed with TDD
-- Unit testing with Jest: .
+- Unit testing with Jest: get/set methods, unit test, and integrate unit tests for interaction between classes.
 
 ## Contributing
 
