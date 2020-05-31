@@ -1,5 +1,5 @@
 # kata
-[fluent calculator](/fluent-calculator/)
+## [fluent calculator](/fluent-calculator/) ##
 
 More information available in the kata folder's [README.md](/fluent-calculator/README.md)
 ### Installation
@@ -14,7 +14,8 @@ More information available in the kata folder's [README.md](/fluent-calculator/R
 
 5. Run the console test: `node src/index.js` from fluent-calculator folder or `npm run fluent-calculator` from root folder.
 
-[secret string](/secret-string/)
+---
+## [secret string](/secret-string/) ##
 
 More information available in the kata folder's [README.md](/secret-string/README.md)
 ### Installation
