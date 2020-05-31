@@ -75,6 +75,30 @@ describe('create Decoder class', () => {
 
   // test whether you can call a method
   it('should take an array of hints to revreal the message', () => {
-    console.log('holding place')
+    const decoder = new Decoder()
+
+    const wickedSecret = [
+      ['w', 'i', 'c'],
+      ['k', 'e', 'd'],
+      ['w', 'c', 'e'],
+      ['i', 'k', 'd'],
+      ['i', 'c', 'k'],
+    ]
+
+    expect(decoder.decodeSecret(wickedSecret)).toBe(true)
+    const expectedTiles = [
+      { letter: 'w', links: ['i', 'c'] },
+      { letter: 'i', links: ['c', 'k'] },
+      { letter: 'c', links: ['e', 'k'] },
+      { letter: 'k', links: ['e', 'd'] },
+      { letter: 'e', links: ['d'] },
+      { letter: 'd', links: [] },
+    ]
+    // check the contents are same for letter and links
+    const returnLetters = (tiles) => tiles.map((tile) => tile.letter)
+    expect(returnLetters(decoder.tiles)).toEqual(returnLetters(expectedTiles))
+    const returnLinks = (tiles) => tiles.map((tile) => tile.links)
+    expect(returnLinks(decoder.tiles)).toEqual(returnLinks(expectedTiles))
+    expect(decoder.revealSecret()).toEqual('wicked')
   })
 })

@@ -42,8 +42,8 @@ module.exports = class Tile {
     if (this.letter === newLink) {
       console.error('Cannot add self as link')
     } else if (typeof newLink !== 'string') {
-      const notString = new TypeError('Incorrect type for new link')
-      throw notString
+      console.log('what is casugin newLink type error?', newLink)
+      throw new TypeError('Incorrect type for new link')
     } else if (!this.linksTo({ letter: newLink })) {
       this.links = this.links.concat(newLink)
     }
