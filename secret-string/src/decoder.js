@@ -34,8 +34,26 @@ module.exports = class Decoder {
     }
   }
 
-  decodeAll(hints) {
-    console.log('hello')
+  decodeSecret(hints) {
+    let currentHint
+    try {
+      hints.forEach((hint) => {
+        currentHint = hint
+        this.decodeTriplet(hint)
+      })
+    } catch (err) {
+      console.error(
+        this.tiles.map((t) => `${t.letter}->${t.links}`) +
+          '\n' +
+          currentHint +
+          ' >> ' +
+          err.name +
+          ': ' +
+          err.message
+      )
+      return false
+    }
+    return true
   }
 
   decodeTriplet(hint) {
@@ -90,13 +108,13 @@ module.exports = class Decoder {
     })
 
     console.assert(
-      position !== undefined,
+      !Object.is(position, undefined),
       `${targetTile.letter} is not found in tiles ${tiles.map(
         (tile) => tile.letter
       )}`
     )
 
-    if (position !== -undefined) {
+    if (!Object.is(position, undefined)) {
       const currentTiles = [...tiles]
 
       // update Tiles array and all tile
@@ -132,12 +150,12 @@ module.exports = class Decoder {
     return message.join('')
   }
 
-  upsertTile(letter, letterAfter) {
+  upsertTile(letter, letterAfter = undefined) {
     const existingTile = this.getTile(letter)
     if (!existingTile) {
       const newTile = new Tile(letter, letterAfter)
       this.tiles = this.tiles.concat(newTile)
-    } else {
+    } else if (!Object.is(letterAfter, undefined)) {
       existingTile.addLink(letterAfter)
     }
   }
