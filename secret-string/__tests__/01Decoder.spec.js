@@ -35,13 +35,13 @@ describe('create Decoder class', () => {
     expect(decoder.isEmpty()).toEqual(false)
     expect(decoder.tiles).toEqual([testTileA, testTileB, testTileC, testTileD])
 
-    // remove a tile in 1 links
+    // remove a tile with 1 link
     decoder.removeTile(decoder.tiles, testTileD)
     testTileC.removeLink(testTileD.letter) // remove 'd' from c.links
     expect(decoder.tiles).toEqual([testTileA, testTileB, testTileC])
     expect(decoder.getNullTile()).toEqual(testTileC)
 
-    // remove a tile in 2 links
+    // remove a tile with 2 links
     decoder.removeTile(decoder.tiles, testTileC)
     testTileA.removeLink(testTileC.letter) // remove 'c' from a.links
     testTileB.removeLink(testTileC.letter) // remove 'c' from b.links
@@ -53,15 +53,23 @@ describe('create Decoder class', () => {
     expect(decoder.isEmpty()).toEqual(true)
   })
 
-  // test input errors
-  test('incorrect inputs returns appropriate error', () => {
+  // test input errors and messages
+  test('incorrect inputs returns appropriate error and/or message', () => {
     const decoder = new Decoder()
 
     // add incorrect hint to decoder
     expect(() => decoder.decodeTriplet([NaN, 'a'])).toThrow(TypeError)
     expect(decoder.isEmpty()).toEqual(true)
 
+    // update tiles without an array
+    expect(() => (decoder.tiles = 'a')).toThrow(TypeError)
+    expect(decoder.isEmpty()).toEqual(true)
+
     // remove non-existent
     decoder.decodeTriplet(['a', 'b', 'c'])
+    const testTileD = new Tile('d')
+    const spy = jest.spyOn(console, 'assert')
+    expect(decoder.removeTile(decoder.tiles, testTileD)).toBe(undefined)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })
