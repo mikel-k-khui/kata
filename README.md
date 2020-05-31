@@ -18,3 +18,13 @@ More information available in the kata folder's [README.md](/fluent-calculator/R
 
 More information available in the kata folder's [README.md](/secret-string/README.md)
 ### Installation
+
+1. Download zipped file or clone the kata's github private repo.
+
+2. Navigate to the secret-string folder `cd secret-string`.
+
+3. Install node dependencies: `npm install`.
+
+4. Run the jest test: `npm run test` from secret-string folder or `npm run secret-string-test` from root folder.
+
+5. Run the console test: `node src/index.js` from secret-string folder or `npm run secret-string` from root folder.
