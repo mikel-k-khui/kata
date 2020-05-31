@@ -46,7 +46,7 @@ describe('create Tile class', () => {
 
   // test console error outputs
   it("should return console error when tile's letter not found", () => {
-    const spy = jest.spyOn(console, 'error')
+    const spy = jest.spyOn(console, 'log')
     const tile = new Tile('a', 'b')
 
     // cannot remove tile from to array

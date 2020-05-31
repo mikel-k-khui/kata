@@ -30,21 +30,38 @@ describe('create Decoder class', () => {
     expect(decoder.tiles).toEqual([testTileA, testTileB, testTileC, testTileD])
     expect(decoder.getNullTile()).toEqual(testTileD)
 
-    // remove Decoder to directed - forthcoming
-    // decoder.removeTile(testDecoder)
-    // expect(decoder.pointsTo(testDecoder)).toEqual(false)
-    // expect(decoder.isEmpty()).toEqual(true)
-    // expect(decoder.to).toEqual([])
-
     // reveal the secret
+    expect(decoder.revealSecret()).toBe('abcd')
+    expect(decoder.isEmpty()).toEqual(false)
+    expect(decoder.tiles).toEqual([testTileA, testTileB, testTileC, testTileD])
+
+    // remove a tile in 1 links
+    decoder.removeTile(decoder.tiles, testTileD)
+    testTileC.removeLink(testTileD.letter) // remove 'd' from c.links
+    expect(decoder.tiles).toEqual([testTileA, testTileB, testTileC])
+    expect(decoder.getNullTile()).toEqual(testTileC)
+
+    // remove a tile in 2 links
+    decoder.removeTile(decoder.tiles, testTileC)
+    testTileA.removeLink(testTileC.letter) // remove 'c' from a.links
+    testTileB.removeLink(testTileC.letter) // remove 'c' from b.links
+    expect(decoder.tiles).toEqual([testTileA, testTileB])
+    expect(decoder.getNullTile()).toEqual(testTileB)
+
+    // reveal and destroy the secret after removal
+    expect(decoder.revealSecret(false)).toBe('ab')
+    expect(decoder.isEmpty()).toEqual(true)
   })
 
   // test input errors
   test('incorrect inputs returns appropriate error', () => {
     const decoder = new Decoder()
 
-    // add new hint to decoder
+    // add incorrect hint to decoder
     expect(() => decoder.decodeTriplet([NaN, 'a'])).toThrow(TypeError)
     expect(decoder.isEmpty()).toEqual(true)
+
+    // remove non-existent
+    decoder.decodeTriplet(['a', 'b', 'c'])
   })
 })
