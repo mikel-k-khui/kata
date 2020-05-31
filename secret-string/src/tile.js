@@ -1,44 +1,50 @@
 /**
- * Use directed graph to create
+ * Use directed graph links create
  */
 
 module.exports = class Tile {
-  constructor(letter) {
+  constructor(letter, letterAfter = undefined) {
     this._letter = letter
-    this._to = []
+    this._links = Object.is(letterAfter, undefined) ? [] : [letterAfter]
   }
 
   get letter() {
     return this._letter
   }
 
-  get to() {
-    return this._to
+  get links() {
+    return this._links
   }
 
-  addTo(tile) {
-    if (!this.pointsTo(tile.letter)) {
-      this._to = this._to.concat(tile.letter)
+  addLink(newLink) {
+    // cannot add self as link
+    if (this.letter === newLink) {
+      console.error('Cannot add self as link')
+    } else if (typeof newLink !== 'string') {
+      const notString = new TypeError('Incorrect type for new link')
+      throw notString
+    } else if (!this.linksTo({ letter: newLink })) {
+      this._links = this.links.concat(newLink)
     }
   }
 
-  removeTo(tile) {
-    const position = this.to.indexOf(tile.letter)
+  removeLink(link) {
+    const position = this.links.indexOf(link)
     if (position !== -1) {
-      const currentTo = this.to
-      this._to = currentTo
+      const currentTo = this.links
+      this._links = currentTo
         .slice(0, position)
         .concat(currentTo.slice(position + 1))
     } else {
-      console.error(tile, ' cannot be found in to array')
+      console.error(link, ' cannot be found in links array')
     }
   }
 
-  pointsTo(tile) {
-    return this.to.includes(tile.letter)
+  linksTo(tile) {
+    return this.links.includes(tile.letter)
   }
 
-  isEmpty() {
-    return this._to.length === 0
+  hasLinks() {
+    return this._links.length > 0
   }
 }
