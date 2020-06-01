@@ -24,18 +24,18 @@ describe('validate logic and edge cases', () => {
   // test edge cases
   it('should return undefined if dividend or divisor are zero', () => {
     const Calc = new Calcalutor()
-    expect(Calc.new.zero.divided_by.zero).toBe(undefined)
-    expect(Calc.new.four.divided_by.zero).toBe(undefined)
-    expect(Calc.new.zero.divided_by.four).toBe(undefined)
+    expect(Calc.new.zero.divided_by.zero).toBeUndefined()
+    expect(Calc.new.four.divided_by.zero).toBeUndefined()
+    expect(Calc.new.zero.divided_by.four).toBeUndefined()
   })
 
   // test console error outputs
   it('should return specific errors to console for edge cases', () => {
     const spy = jest.spyOn(console, 'error')
     const Calc = new Calcalutor()
-    expect(Calc.new.zero.divided_by.zero).toBe(undefined)
+    expect(Calc.new.zero.divided_by.zero).toBeUndefined()
     expect(spy).toHaveBeenCalledTimes(1)
-    expect(Calc.plus.eight).toBe(undefined)
+    expect(Calc.plus.eight).toBeUndefined()
     expect(spy).toHaveBeenCalledTimes(2)
     expect(Calc.new.eight.five).toEqual({})
     expect(spy).toHaveBeenCalledTimes(3)
