@@ -14,7 +14,7 @@ const digits = [
 const operators = {
   'plus': (x, y) => x + y,
   'minus': (x, y) => x - y,
-  'times': (x, y) => Math.round(x * y),
+  'times': (x, y) => x * y,
   'divided_by': (x, y) => {
     const quotient = (a, b) => Math.floor(a / b)
     const divisionWithZero = () => {

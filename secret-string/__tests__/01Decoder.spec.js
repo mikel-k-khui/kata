@@ -69,7 +69,7 @@ describe('create Decoder class', () => {
     decoder.decodeTriplet(['a', 'b', 'c'])
     const testTileD = new Tile('d')
     const spy = jest.spyOn(console, 'assert')
-    expect(decoder.removeTile(decoder.tiles, testTileD)).toBe(undefined)
+    expect(decoder.removeTile(decoder.tiles, testTileD)).toBeUndefined()
     expect(spy).toHaveBeenCalledTimes(1)
   })
 

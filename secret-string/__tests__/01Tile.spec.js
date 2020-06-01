@@ -39,9 +39,13 @@ describe('create Tile class', () => {
 
     // add new letter to tile
     const testTile = new Tile('b')
-    expect(() => tile.addLink(testTile)).toThrow(TypeError)
+    expect(() => tile.addLink(testTile)).toThrowError(
+      'Incorrect type for new link'
+    )
     tile.addLink(testTile.letter)
     expect(tile.linksTo({ letter: 'c' })).toEqual(false)
+
+    expect(() => (tile.links = 10)).toThrowError('Incorrect type for tiles')
   })
 
   // test console error outputs
@@ -50,11 +54,11 @@ describe('create Tile class', () => {
     const tile = new Tile('a', 'b')
 
     // cannot remove tile from to array
-    expect(tile.removeLink('c')).toBe(undefined)
+    expect(tile.removeLink('c')).toBeUndefined()
     expect(spy).toHaveBeenCalledTimes(1)
 
     const incorrectTile = new Tile('c')
-    expect(tile.removeLink(incorrectTile)).toBe(undefined)
+    expect(tile.removeLink(incorrectTile)).toBeUndefined()
     expect(spy).toHaveBeenCalledTimes(2)
   })
 })
