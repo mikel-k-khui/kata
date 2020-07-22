@@ -1,0 +1,32 @@
+.Hero {
+  text-align: center;
+}
+
+.Hero-header {
+  height: 500px;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.Hero-background {
+  min-height: 500px;
+  width: 100%;
+  background-image: url("assets/hero/background.svg");
+  background-position: bottom;
+}
+
+.Hero-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 344px;
+}
+
+.Hero-text {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 954px;
+  font-weight: normal;
+  color: white;
+}

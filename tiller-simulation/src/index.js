@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Hero from './components/Hero';
+import Product from './components/Product';
+import Monitoring from './components/Monitoring';
+import Advantage from './components/Advantage';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Hero />
+    <Product />
+    <Monitoring />
+    <Advantage />
   </React.StrictMode>,
   document.getElementById('root')
 );
